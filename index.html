@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Влияние СМИ на подростков</title>
+
+<style>
+:root{
+--bg:#0f2027;
+--bg2:#203a43;
+--bg3:#2c5364;
+--text:#fff;
+--card:rgba(255,255,255,0.08);
+--accent:#00c6ff;
+}
+
+.light{
+--bg:#f2f2f7;
+--bg2:#ffffff;
+--bg3:#e5e5ea;
+--text:#1c1c1e;
+--card:rgba(255,255,255,0.9);
+--accent:#007aff;
+}
+
+body{
+margin:0;
+font-family:-apple-system,"SF Pro Text",sans-serif;
+background:linear-gradient(135deg,var(--bg),var(--bg2),var(--bg3));
+color:var(--text);
+display:flex;
+justify-content:center;
+padding:30px 10px;
+transition:0.5s;
+}
+
+/* живой фон */
+body::before{
+content:"";
+position:fixed;
+width:400px;
+height:400px;
+background:radial-gradient(circle,var(--accent),transparent);
+top:-100px;
+left:-100px;
+filter:blur(100px);
+opacity:0.3;
+z-index:-1;
+}
+
+.container{
+max-width:750px;
+width:100%;
+background:var(--card);
+backdrop-filter:blur(30px);
+padding:25px;
+border-radius:25px;
+box-shadow:0 25px 60px rgba(0,0,0,0.4);
+}
+
+h1{
+text-align:center;
+margin-bottom:15px;
+}
+
+/* анимация */
+.fade{
+opacity:0;
+transform:translateY(20px);
+animation:fadeIn 1s forwards;
+}
+@keyframes fadeIn{
+to{opacity:1;transform:translateY(0);}
+}
+
+.section{
+margin-top:20px;
+padding:18px;
+border-radius:18px;
+background:rgba(0,0,0,0.2);
+line-height:1.7;
+}
+
+.light .section{
+background:#ffffffcc;
+}
+
+img{
+width:100%;
+border-radius:18px;
+margin-top:10px;
+}
+
+label{
+display:block;
+margin-top:10px;
+font-size:14px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+border-radius:12px;
+border:none;
+margin-top:4px;
+background:rgba(255,255,255,0.15);
+color:var(--text);
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#007aff,#00c6ff);
+color:white;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:translateY(-2px) scale(1.03);
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.theme{
+text-align:right;
+cursor:pointer;
+opacity:0.7;
+}
+
+.footer{
+margin-top:20px;
+font-size:11px;
+opacity:0.4;
+text-align:center;
+font-family:cursive;
+}
+
+.loader{
+display:none;
+margin-top:10px;
+text-align:center;
+}
+
+.loader div{
+width:8px;
+height:8px;
+background:var(--accent);
+border-radius:50%;
+display:inline-block;
+animation:bounce 0.6s infinite alternate;
+}
+
+.loader div:nth-child(2){animation-delay:0.2s;}
+.loader div:nth-child(3){animation-delay:0.4s;}
+
+@keyframes bounce{
+to{transform:translateY(-10px);}
+}
+
+.tips{
+margin-top:15px;
+padding:12px;
+border-radius:12px;
+background:rgba(0,0,0,0.2);
+font-size:14px;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="theme" onclick="toggleTheme()">🌙 / ☀️</div>
+
+<h1>Влияние СМИ на подростков</h1>
+
+<div class="section fade">
+<b>Почему это важно?</b><br><br>
+Почему это важно?
+
+ Мы живём в мире, где информация окружает нас постоянно. Подростки проводят в интернете и социальных сетях значительную часть своего времени — иногда более 5 часов в день. СМИ формируют не только знания, но и: — самооценку — поведение — привычки — взгляды на жизнь Алгоритмы социальных сетей показывают контент, который удерживает внимание. Из-за этого человек может попадать в «информационный пузырь» — видеть только одну точку зрения. Это делает тему особенно актуальной: важно не просто потреблять информацию, а уметь её анализировать и защищать своё мышление.
+</div>
+
+<div class="section fade">
+<b>Факты:</b><br><br>
+• Подростки — одна из самых активных аудиторий интернета • Социальные сети могут влиять на уровень тревожности • Частое сравнение себя с другими снижает или сильно повышает самооценку • СМИ могут как развивать, так и манипулировать Именно поэтому важно изучать влияние медиа и формировать критическое мышление.
+</div>
+
+<!-- факт дня -->
+<div id="fact" style="margin-top:10px;font-size:13px;opacity:0.8"></div>
+
+<img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7">
+
+<div class="section fade">
+<h3>📊 Опрос: влияние социальных сетей</h3>
+
+<div id="counter" style="text-align:center;margin-bottom:10px;opacity:0.7"></div>
+
+<form id="survey">
+
+<div id="progressText" style="margin-bottom:10px;font-size:13px;opacity:0.7"></div>
+
+<!-- форма БЕЗ изменений -->
+<label>Имя</label>
+<input type="text" name="name">
+
+<label>Время в соцсетях</label>
+<select name="time">
+<option>Менее 1 часа</option>
+<option>1-3 часа</option>
+<option>3-5 часов</option>
+<option>Более 5 часов</option>
+</select>
+
+<label>Как часто проверяешь?</label>
+<select name="check">
+<option>Каждые 5-10 минут</option>
+<option>Каждый час</option>
+<option>Редко</option>
+</select>
+
+<label>Влияют на настроение</label>
+<select name="mood">
+<option>Да</option>
+<option>Иногда</option>
+<option>Нет</option>
+</select>
+
+<label>Есть зависимость</label>
+<select name="addiction">
+<option>Да</option>
+<option>Немного</option>
+<option>Нет</option>
+</select>
+
+<label>Влияют на самооценку</label>
+<select name="self">
+<option>Да</option>
+<option>Иногда</option>
+<option>Нет</option>
+</select>
+
+<label>Сравниваешь себя</label>
+<select name="compare">
+<option>Да</option>
+<option>Иногда</option>
+<option>Нет</option>
+</select>
+
+<label>Какими соцсетями вы чаще всего пользуетесь?</label>
+<input type="text" name="social">
+
+<label>Получаете ли вы новости из соцсетей?</label>
+<select name="news">
+<option>Да</option>
+<option>Иногда</option>
+<option>Нет</option>
+</select>
+
+<button type="submit">Отправить</button>
+
+</form>
+
+<div id="result"></div>
+
+<div class="loader" id="loader">
+<div></div><div></div><div></div>
+</div>
+
+<div class="tips" id="tips"></div>
+
+</div>
+
+<div class="footer">
+сайт создан: Королёва Кира 10Б, МБОУ "СОШ № 20", г. Абакан
+</div>
+
+</div>
+
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwZ4yQs0IzDXlo5PIZMU9Otd39CyPuQRenO98M_Gg_ZDwhqVmIc9fZIAfhZeryquDFS3g/exec";
+
+/* факт дня */
+const facts=[
+"📱 Подростки проверяют телефон десятки раз в день",
+"🧠 Соцсети влияют на восприятие реальности",
+"😴 Телефон перед сном ухудшает сон",
+"📊 Алгоритмы управляют вниманием"
+];
+document.getElementById("fact").innerText=
+facts[Math.floor(Math.random()*facts.length)];
+
+/* счётчик */
+let count=localStorage.getItem("count")||0;
+document.getElementById("counter").innerText="Прошли опрос: "+count;
+
+/* прогресс */
+const fields=document.querySelectorAll("#survey input, #survey select");
+fields.forEach(f=>f.addEventListener("input",updateProgress));
+
+function updateProgress(){
+let filled=[...fields].filter(f=>f.value).length;
+let percent=Math.round(filled/fields.length*100);
+document.getElementById("progressText").innerText="Заполнено: "+percent+"%";
+}
+
+document.getElementById("survey").addEventListener("submit",function(e){
+e.preventDefault();
+
+count++;
+localStorage.setItem("count",count);
+document.getElementById("counter").innerText="Прошли опрос: "+count;
+
+document.getElementById("loader").style.display="block";
+
+let data={
+name:this.name.value,
+time:this.time.value,
+check:this.check.value,
+mood:this.mood.value,
+addiction:this.addiction.value,
+self:this.self.value,
+compare:this.compare.value,
+social:this.social.value,
+news:this.news.value
+};
+
+fetch(SCRIPT_URL,{
+method:"POST",
+body:JSON.stringify(data)
+});
+
+let score=0;
+if(data.time==="Более 5 часов") score+=2;
+if(data.check==="Каждые 5-10 минут") score+=2;
+if(data.addiction==="Да") score+=2;
+
+document.getElementById("result").innerHTML=
+score>=5?"🔥 Сильное влияние":
+score>=3?"⚠️ Среднее влияние":
+"✅ Слабое влияние";
+
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+
+const tips=[
+"📵 Делайте перерывы от соцсетей",
+"🧠 Проверяйте источники информации",
+"💬 Общайтесь в реальной жизни чаще",
+"📊 Не сравнивайте себя с другими",
+"⏳ Ограничивайте экранное время"
+];
+
+document.getElementById("tips").style.display="block";
+document.getElementById("tips").innerHTML="<b>Совет:</b> "+
+tips[Math.floor(Math.random()*tips.length)];
+
+},1000);
+});
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+localStorage.setItem("theme",document.body.classList.contains("light")?"light":"dark");
+}
+
+if(localStorage.getItem("theme")==="light"){
+document.body.classList.add("light");
+}
+</script>
+
+</body>
+</html>
